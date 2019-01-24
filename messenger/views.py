@@ -52,10 +52,10 @@ def process_listen(request):
         
         if text == "":
             response = "CON Select State: \n"
-            for s in states:
-                response += "1. {} \n".format(s)
+            for i, s in enumerate(states):
+                response += "{}. {} \n".format(i+1,s)
 
         elif text == "1":
-            response = "END My Phone number is {0}".format(phone_number)
+            response = "END Dear {0}, you selected {}, now pick an LGA".format(phone_number, states[1])
 
         return HttpResponse(response)
