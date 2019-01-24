@@ -10,7 +10,6 @@ import re
 from .forms import SignUpForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from ussd.core import UssdView, UssdRequest
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 
@@ -38,34 +37,26 @@ def signup(request):
 @csrf_exempt
 @require_POST
 def process_listen(request):
+    # Save the data
     incoming_data = request.POST.copy()
-    print(incoming_data)
     text_data = incoming_data.get('text')
-    # Regex to search for email
-    # email = re.search(r'[\w\.-]+@[\w\.-]+', text_data)
-    # email = email.group(0)
-    email = ''
-    # Save received sms to Hooks
-    hook = Hook(data=text_data, type='SMS')
+    hook = Hook(data=text_data, type='USSD')
     hook.save()
-    subject = 'Messenger'
-    message = text_data
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [email,]
-    # send_mail( subject, message, email_from, recipient_list )
-    return HttpResponse("Email sent to {}".format(email))
+    # Process the data
+    if request.method == 'POST':
+        session_id = request.POST.get('sessionId')
+        service_code = request.POST.get('serviceCode')
+        phone_number = request.POST.get('phoneNumber')
+        text = request.POST.get('text')
 
-def es_search():
-    s = Search(using=client, index=index_name)
-    s.update_from_dict({"size": 1000})
-    # OR
-    s = Search(using=client, index="poi-health-facility")
-    response = s.execute()
-    # OR
-    s = Search(using=client, index="poi-health-facility") \
-            .query("match", id=facility_id)
-    response = s.execute()
-    pass
+        response = ""
 
-def social_post():
-    pass
+        if text == "":
+            response = "CON What would you want to check \n"
+            response += "1. My Phone Number \n"
+            response += "2. Name"
+
+        elif text == "1":
+            response = "END My Phone number is {0}".format(phone_number)
+
+        return HttpResponse(response)
