@@ -10,8 +10,6 @@ import re
 from .forms import SignUpForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
 
 # Homepage function
 @login_required(login_url='/accounts/login/')
@@ -50,11 +48,12 @@ def process_listen(request):
         text = request.POST.get('text')
 
         response = ""
-
+        states = ['ABIA', 'ADAMAWA', 'AKWA IBOM', 'ANAMBRA', 'BAUCHI', 'BAYELSA', 'BENUE', 'BORNO', 'CROSS RIVER', 'DELTA', 'EBONYI', 'EDO', 'EKITI', 'ENUGU', 'FCT', 'GOMBE', 'IMO', 'JIGAWA', 'KADUNA', 'KANO', 'KATSINA', 'KEBBI', 'KOGI', 'KWARA', 'LAGOS', 'NASARAWA', 'NIGER', 'OGUN', 'ONDO', 'OSUN', 'OYO', 'PLATEAU', 'RIVERS', 'SOKOTO', 'TARABA', 'YOBE', 'ZAMFARA']
+        
         if text == "":
-            response = "CON What would you want to check \n"
-            response += "1. My Phone Number \n"
-            response += "2. Name"
+            response = "CON Select State: \n"
+            for s in states:
+                response += "1. {} \n".format(s)
 
         elif text == "1":
             response = "END My Phone number is {0}".format(phone_number)
