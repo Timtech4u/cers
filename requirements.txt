@@ -6,3 +6,4 @@ gunicorn
 sentry_sdk
 requests
 geocoder
+bs4
