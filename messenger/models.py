@@ -1,4 +1,5 @@
 from django.db import models
+import geocoder
 
 class Hook(models.Model):
     date = models.DateTimeField(auto_now_add=True)
@@ -48,6 +49,10 @@ class Units(models.Model):
 
     def save(self, *args, **kwargs):
         self.location = "{} {} {} {}".format(self.name, self.ward, self.lga, self.state)
+        if self.location != None:
+            g = geocoder.arcgis(self.location)
+            self.lat = g[0]
+            self.lon = g[1]
         super(Units, self).save(*args, **kwargs)
 
     class Meta:

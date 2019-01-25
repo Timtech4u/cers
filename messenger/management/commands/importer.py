@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand
 from messenger.models import *
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import geocoder
 
 class Command(BaseCommand):
     help = 'Performs import of Polling Units'
@@ -29,23 +28,16 @@ class Command(BaseCommand):
                 unit_url = 'http://52.23.145.6/web/site/units?lga_id={}&state_id={}&ward_id={}'.format(i+1, id, ii+1)
                 units = self.getData(unit_url)
                 for unit in units:
-                    pu = Units.objects.get_or_create(
+                    Units.objects.create(
                         name = unit,
                         ward = w,
                         lga = l,
                         state = state
                     )
-                    g = geocoder.arcgis(pu.location)
-                    if g != None:
-                        lat = g[0]
-                        lon = g[1]
-                        pu.lat = lat
-                        pu.lon = lon
-                        pu.save()
-
         print("Done.....")
 
     def handle(self, *args, **options):
         for i in range(37):
+            print(i)
             self.import_locations(i)
         
