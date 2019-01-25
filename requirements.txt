@@ -5,3 +5,4 @@ django-heroku
 gunicorn
 sentry_sdk
 requests
+geocoder

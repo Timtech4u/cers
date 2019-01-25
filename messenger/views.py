@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Hook
+from .models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
@@ -35,12 +35,6 @@ def signup(request):
 @csrf_exempt
 @require_POST
 def process_listen(request):
-    # # Save the data
-    # incoming_data = request.POST.copy()
-    # text_data = incoming_data.get('text')
-    # hook = Hook(data=text_data, type='USSD')
-    # hook.save()
-
     # Process the data
     if request.method == 'POST':
         session_id = request.POST.get('sessionId')
