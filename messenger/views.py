@@ -71,7 +71,7 @@ def process_listen(request):
                 response += "{}. {} \n".format(i+1,s)
 
         elif text == "1*1":
-            response = "CON You selected {}, now pick a LGA \n".format(states[1])
+            response = "CON You selected {}, now pick a LGA \n".format(states[0])
             lga = [' ABA NORTH', ' ABA SOUTH', ' AROCHUKWU', ' BENDE', ' IKWUANO', ' ISIALA NGWA NORTH', ' ISIALA NGWA SOUTH', ' ISUIKWUATO', ' OBINGWA', ' OHAFIA', ' OSISIOMA', ' UGWUNAGBO', ' UKWA EAST', ' UKWA  WEST', ' UMUAHIA NORTH', ' UMUAHIA  SOUTH', ' UMU - NNEOCHI']
             for i, l in enumerate(lga):
                 response += "{}. {} \n".format(i+1,l)
