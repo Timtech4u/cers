@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from messenger.models import *
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import geocoder
 
 class Command(BaseCommand):
     help = 'Performs import of Polling Units'
