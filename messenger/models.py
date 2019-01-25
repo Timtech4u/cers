@@ -51,8 +51,10 @@ class Units(models.Model):
         self.location = "{} {} {} {}".format(self.name, self.ward, self.lga, self.state)
         if self.location != None:
             g = geocoder.arcgis(self.location)
-            self.lat = g[0]
-            self.lon = g[1]
+            g = g.latlng
+            if len(g)==2:
+                self.lat = g[0]
+                self.lon = g[1]
         super(Units, self).save(*args, **kwargs)
 
     class Meta:

@@ -28,7 +28,7 @@ class Command(BaseCommand):
                 unit_url = 'http://52.23.145.6/web/site/units?lga_id={}&state_id={}&ward_id={}'.format(i+1, id, ii+1)
                 units = self.getData(unit_url)
                 for unit in units:
-                    Units.objects.create(
+                    Units.objects.get_or_create(
                         name = unit,
                         ward = w,
                         lga = l,
