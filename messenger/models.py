@@ -6,4 +6,4 @@ class Hook(models.Model):
     type = models.CharField(blank=True, null=True, max_length=10)
 
     def __str__(self):
-        return "{}".format(self.date)
+        return "{}".format(self.data)
