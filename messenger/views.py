@@ -93,6 +93,6 @@ def process_listen(request):
         
         # For demo
         if text == "1*1*6 Polling box stolen":
-            response = "END Report Successful!"
+            response = "END Report Successful! \n For Further help call the Nigeria Police Force: \n 07066228200"
                 
         return HttpResponse(response)
