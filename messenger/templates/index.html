@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 
 <head>
   <meta charset="utf-8" />
@@ -42,21 +43,21 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="active ">
-            <a href="./index.html">
+            <a href="{% url 'home' %}">
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>
           </li>
         
           <li>
-            <a href="./map.html">
+            <a href="{% url 'map' %}">
               <i class="nc-icon nc-pin-3"></i>
               <p>Maps</p>
             </a>
           </li>
 
           <li>
-            <a href="./tables.html">
+            <a href="{% url 'list' %}">
               <i class="nc-icon nc-tile-56"></i>
               <p>Reports List</p>
             </a>
@@ -264,13 +265,13 @@
             <nav class="footer-nav">
               <ul>
                 <li>
-                  <a href="https://www.creative-tim.com" target="_blank">CERS</a>
+                  <a href="https://facebook.com/cersupdates/" target="_blank"> Facebook </a>
                 </li>
                 <li>
-                  <a href="http://blog.creative-tim.com/" target="_blank">Blog</a>
+                  <a href="https://twitter.com/cersupdates/" target="_blank"> Twitter </a>
                 </li>
                 <li>
-                  <a href="https://www.creative-tim.com/license" target="_blank">Licenses</a>
+                  <a href="https://linkedin.com/in/cersupdates/" target="_blank"> LinkedIn </a>
                 </li>
               </ul>
             </nav>
@@ -279,7 +280,7 @@
                 ©
                 <script>
                   document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by CERS
+                </script>, made with <i class="fa fa-heart heart"></i> by SafeLife
               </span>
             </div>
           </div>

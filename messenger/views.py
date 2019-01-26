@@ -18,6 +18,12 @@ crisis = ['Peaceful', 'Rigging', 'Polling box missing', 'Violence', 'Others']
 def home(request):
     return render(request, 'index.html')
 
+def mapV(request):
+    return render(request, 'map.html')
+
+def listV(request):
+    return render(request, 'tables.html')
+
 # Function for User signup
 def signup(request):
     if request.method == 'POST':

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+
 
 <head>
   <meta charset="utf-8" />
@@ -41,22 +43,22 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
-            <a href="./index.html">
+          <li>
+            <a href="{% url 'home' %}">
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>
           </li>
         
           <li>
-            <a href="./map.html">
+            <a href="{% url 'map' %}">
               <i class="nc-icon nc-pin-3"></i>
               <p>Maps</p>
             </a>
           </li>
 
-          <li>
-            <a href="./tables.html">
+          <li class="active">
+            <a href="{% url 'list' %}">
               <i class="nc-icon nc-tile-56"></i>
               <p>Reports List</p>
             </a>
