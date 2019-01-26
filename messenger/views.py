@@ -15,9 +15,8 @@ states = ['ABIA', 'ADAMAWA', 'AKWA IBOM', 'ANAMBRA', 'BAUCHI', 'BAYELSA', 'BENUE
 crisis = ['Peaceful', 'Rigging', 'Polling box missing', 'Violence', 'Others']
 
 # Homepage function
-@login_required(login_url='/accounts/login/')
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 # Function for User signup
 def signup(request):
