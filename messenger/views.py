@@ -75,8 +75,8 @@ def process_listen(request):
                 state_choice = state
                 state_id = i+1
                 response = "CON Select a Polling Unit: \n"
-                response += "Report with Unit ID & Message \n"
-                response += "e.g: 6 Polling box stolen \n "
+                response += "Report with Unit 'ID-Message' e.g:\n"
+                response += "1-voting here was rigged"
                 for l in Units.objects.filter(state=state):
                     response += "{}. {} \n".format(l.id, l.name)
                 response += "Enter 0 for more. \n"
@@ -92,7 +92,7 @@ def process_listen(request):
         #         response = "CON Enter your report message here:"
         
         # For demo
-        if text == "1*1*1":
+        if text == "1*1*1-voting here was rigged":
             response = "END Report Successful! \n For Further help call the Nigeria Police Force: \n 07066228200"
                 
         return HttpResponse(response)
