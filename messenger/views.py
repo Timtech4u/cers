@@ -11,10 +11,13 @@ from .forms import SignUpForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
+states = ['ABIA', 'ADAMAWA', 'AKWA IBOM', 'ANAMBRA', 'BAUCHI', 'BAYELSA', 'BENUE', 'BORNO', 'CROSS RIVER', 'DELTA', 'EBONYI', 'EDO', 'EKITI', 'ENUGU', 'FCT', 'GOMBE', 'IMO', 'JIGAWA', 'KADUNA', 'KANO', 'KATSINA', 'KEBBI', 'KOGI', 'KWARA', 'LAGOS', 'NASARAWA', 'NIGER', 'OGUN', 'ONDO', 'OSUN', 'OYO', 'PLATEAU', 'RIVERS', 'SOKOTO', 'TARABA', 'YOBE', 'ZAMFARA']
+crisis = ['Peaceful', 'Rigging', 'Polling box missing', 'Violence', 'Others']
+
 # Homepage function
 @login_required(login_url='/accounts/login/')
 def home(request):
-    return render(request, 'home.html', {})
+    return render(request, 'home.html')
 
 # Function for User signup
 def signup(request):
@@ -35,6 +38,11 @@ def signup(request):
 @csrf_exempt
 @require_POST
 def process_listen(request):
+    user_choice = None
+    state_choice = None
+    state_id = None
+    total_locations = Units.objects.all().count()
+
     # Process the data
     if request.method == 'POST':
         session_id = request.POST.get('sessionId')
@@ -43,7 +51,6 @@ def process_listen(request):
         text = request.POST.get('text')
 
         response = ""
-        states = ['ABIA', 'ADAMAWA', 'AKWA IBOM', 'ANAMBRA', 'BAUCHI', 'BAYELSA', 'BENUE', 'BORNO', 'CROSS RIVER', 'DELTA', 'EBONYI', 'EDO', 'EKITI', 'ENUGU', 'FCT', 'GOMBE', 'IMO', 'JIGAWA', 'KADUNA', 'KANO', 'KATSINA', 'KEBBI', 'KOGI', 'KWARA', 'LAGOS', 'NASARAWA', 'NIGER', 'OGUN', 'ONDO', 'OSUN', 'OYO', 'PLATEAU', 'RIVERS', 'SOKOTO', 'TARABA', 'YOBE', 'ZAMFARA']
 
         if text == "":
             response = "CON Welcome, what emergency do you want to report? \n"
@@ -56,152 +63,36 @@ def process_listen(request):
         elif text == "2" or text == "3" or text == "4":
             response = "END Check back soon! \n We're working on this feature!"
 
-        elif text == "0":
-            response = "END Goodbye!"
-
         elif text == "1":
-            response = "CON Select State: \n"
-            for i, s in enumerate(states):
-                response += "{}. {} \n".format(i+1,s)
+            response = "CON Select a State: \n"
+            for s, state in enumerate(states):
+                response += "{}. {} \n".format(s+1, state)
+  
+        # Reduce this to LGA and Ward
+        for i in range(0,37):
+            if text == "1*{}".format(i+1):
+                state = states[i]
+                state_choice = state
+                state_id = i+1
+                response = "CON Select a Polling Unit: \n"
+                response += "Report with Unit ID & Message \n"
+                response += "e.g: 6 Polling box stolen \n \n"
+                for l in Units.objects.filter(state=state):
+                    response += "{}. {} \n".format(l.id, l.name)
+                response += "Enter 0 for more. \n"
 
-        elif text == "1*1":
-            response = "CON You selected {}, now pick a LGA \n".format(states[0])
-            lga = [' ABA NORTH', ' ABA SOUTH', ' AROCHUKWU', ' BENDE', ' IKWUANO', ' ISIALA NGWA NORTH', ' ISIALA NGWA SOUTH', ' ISUIKWUATO', ' OBINGWA', ' OHAFIA', ' OSISIOMA', ' UGWUNAGBO', ' UKWA EAST', ' UKWA  WEST', ' UMUAHIA NORTH', ' UMUAHIA  SOUTH', ' UMU - NNEOCHI']
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-
-        elif text == "1*2":
-            response = "CON You selected {}, now pick a LGA \n".format(states[2])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-
-        elif text == "1*3":
-            response = "CON You selected {}, now pick a LGA \n".format(states[3])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-
-        elif text == "1*4":
-            response = "CON You selected {}, now pick a LGA \n".format(states[4])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*5":
-            response = "CON You selected {}, now pick a LGA \n".format(states[5])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*6":
-            response = "CON You selected {}, now pick a LGA \n".format(states[6])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*7":
-            response = "CON You selected {}, now pick a LGA \n".format(states[7])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                          
-        elif text == "1*8":
-            response = "CON You selected {}, now pick a LGA \n".format(states[8])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*9":
-            response = "CON You selected {}, now pick a LGA \n".format(states[9])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*10":
-            response = "CON You selected {}, now pick a LGA \n".format(states[10])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-
-        elif text == "1*11":
-            response = "CON You selected {}, now pick a LGA \n".format(states[11])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*12":
-            response = "CON You selected {}, now pick a LGA \n".format(states[12])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*13":
-            response = "CON You selected {}, now pick a LGA \n".format(states[13])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*14":
-            response = "CON You selected {}, now pick a LGA \n".format(states[14])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*15":
-            response = "CON You selected {}, now pick a LGA \n".format(states[15])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*16":
-            response = "CON You selected {}, now pick a LGA \n".format(states[16])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*17":
-            response = "CON You selected {}, now pick a LGA \n".format(states[17])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*18":
-            response = "CON You selected {}, now pick a LGA \n".format(states[19])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                
-        elif text == "1*19":
-            response = "CON You selected {}, now pick a LGA \n".format(states[19])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                                
-        elif text == "1*20":
-            response = "CON You selected {}, now pick a LGA \n".format(states[20])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                                
-        elif text == "1*21":
-            response = "CON You selected {}, now pick a LGA \n".format(states[21])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                                
-        elif text == "1*22":
-            response = "CON You selected {}, now pick a LGA \n".format(states[22])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                                
-        elif text == "1*23":
-            response = "CON You selected {}, now pick a LGA \n".format(states[23])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                                
-        elif text == "1*24":
-            response = "CON You selected {}, now pick a LGA \n".format(states[24])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                                
-        elif text == "1*25":
-            response = "CON You selected {}, now pick a LGA \n".format(states[25])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-                                
-        elif text == "1*26":
-            response = "CON You selected {}, now pick a LGA \n".format(states[26])
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
         
-        # Data for Polling Units
-        elif text == "1*1":
-            response = "CON You selected {}, now pick a LGA \n".format(states[1])
-            lga = [' ABA NORTH', ' ABA SOUTH', ' AROCHUKWU', ' BENDE', ' IKWUANO', ' ISIALA NGWA NORTH', ' ISIALA NGWA SOUTH', ' ISUIKWUATO', ' OBINGWA', ' OHAFIA', ' OSISIOMA', ' UGWUNAGBO', ' UKWA EAST', ' UKWA  WEST', ' UMUAHIA NORTH', ' UMUAHIA  SOUTH', ' UMU - NNEOCHI']
-            for i, l in enumerate(lga):
-                response += "{}. {} \n".format(i+1,l)
-
-        elif text == "1*1*1":
-            response = "CON Select a Polling Unit:"
+        # if state_id != None:
+        #     for i in range(1, total_locations+1):
+        #         if text=="1*1*1":
+        #             response = "END Hello"
+        
+        # for i in range(0,37):
+        #     if text == "1*{}*#".format(i+1):
+        #         response = "CON Enter your report message here:"
+        
+        # For demo
+        if text == "1*1*6 Polling box stolen":
+            response = "END Report Successful!"
+                
         return HttpResponse(response)

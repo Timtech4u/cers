@@ -52,7 +52,7 @@ class Units(models.Model):
         if self.location != None:
             g = geocoder.arcgis(self.location)
             g = g.latlng
-            if len(g)==2:
+            if type(g) is list and len(g)==2:
                 self.lat = g[0]
                 self.lon = g[1]
         super(Units, self).save(*args, **kwargs)

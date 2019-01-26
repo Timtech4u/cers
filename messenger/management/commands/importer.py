@@ -18,7 +18,9 @@ class Command(BaseCommand):
 
     def import_locations(self, id):
         state = self.states[id]
+        created = 0
         print("Performing import for {} ......".format(state))
+        id += 1
         lga_url = 'http://52.23.145.6/web/site/lga?state_id={}'.format(id)
         lgas = self.getData(lga_url)
         for i, l in enumerate(lgas):
@@ -28,16 +30,24 @@ class Command(BaseCommand):
                 unit_url = 'http://52.23.145.6/web/site/units?lga_id={}&state_id={}&ward_id={}'.format(i+1, id, ii+1)
                 units = self.getData(unit_url)
                 for unit in units:
-                    Units.objects.get_or_create(
+                    Units.objects.create(
                         name = unit,
                         ward = w,
                         lga = l,
                         state = state
                     )
+                    if unit:
+                        created += 1
+                        if created == 10:
+                            break
+                if created == 10:
+                    break
+            if created == 10:
+                break
         print("Done.....")
 
     def handle(self, *args, **options):
-        for i in range(37):
+        for i in range(0,37):
             print(i)
             self.import_locations(i)
         
