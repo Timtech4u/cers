@@ -75,8 +75,7 @@ def process_listen(request):
                 state_choice = state
                 state_id = i+1
                 response = "CON Select a Polling Unit: \n"
-                response += "Report with Unit 'ID-Message' e.g:\n"
-                response += "1-voting here was rigged"
+                response += "Report with Unit 'ID-Message' e.g:\n \n"
                 for l in Units.objects.filter(state=state):
                     response += "{}. {} \n".format(l.id, l.name)
                 response += "Enter 0 for more. \n"
