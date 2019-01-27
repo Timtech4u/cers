@@ -22,5 +22,5 @@ urlpatterns = [
     path('', include('messenger.urls'))
 ]
 
-admin.site.site_header = 'Pusher Admin'
-admin.site.site_title = 'Pusher Admin'
+admin.site.site_header = 'CERS Admin'
+admin.site.site_title = 'CERS Admin'
