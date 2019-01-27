@@ -15,7 +15,7 @@ class Report(models.Model):
     message = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.number
+        return self.location
 
 class Official(models.Model):
     name = models.CharField(max_length=100)
