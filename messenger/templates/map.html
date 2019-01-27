@@ -75,7 +75,13 @@
               <i class="nc-icon nc-tile-56"></i>
               <p>Reports List</p>
             </a>
-          </li>         
+          </li>
+          <li class="active-pro">
+            <a href="/admin/">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>Admin Dashboard</p>
+            </a>
+          </li>          
         </ul>
       </div>
     </div>
@@ -111,7 +117,7 @@
           <div class="col-md-12 mapper">
             <div class="card ">
               <div class="card-header ">
-                Google Maps
+                Reports Maps
               </div>
               <div class="card-body ">
                 <div id="map" class="map"></div>
@@ -169,31 +175,35 @@
     $(document).ready(function() {
       // demo.initGoogleMaps();
     });
+  <script>
+    $(document).ready(function() {
+      // demo.initGoogleMaps();
+    });
   </script>
   <script type="text/javascript">
     // instantiate map
-    const mymap = L.map("map", {
+    const mymap = L.map('map', {
       dragging: false,
       zoomControl: false,
       minZoom: 11,
       maxZoom: 11,
     })
-      .setView([40.7125, -74], 11);
+      .setView([5.1268, 7.3679], 11);
     // add carto light basemap tiles
-    L.tileLayer("//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", {
-      maxZoom: 18, attribution: "&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>"
+    L.tileLayer('//{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+      maxZoom: 18, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(mymap);
     // add a marker
-    const marker = L.marker([40.76704, -73.97967]).addTo(mymap);
-    marker.bindPopup("Here is a marker.  Click to link to another site");
-    marker.on("mouseover", function (e) {
+    const marker = L.marker([5.106580000000065, 7.366670000000056]).addTo(mymap);
+    marker.bindPopup("RAILWAY QUARTERS - RAILWAY QUARTERS I<br> <b>Voting here was rigged </b>");
+    marker.on('mouseover', function (e) {
         this.openPopup();
     });
-    marker.on("mouseout", function (e) {
+    marker.on('mouseout', function (e) {
         this.closePopup();
     });
-    marker.on("click", function() {
-      window.open("https://planninglabs.nyc", "_blank")
+    marker.on('click', function() {
+      window.open('https://planninglabs.nyc', '_blank')
     });
   </script>
 </body>
