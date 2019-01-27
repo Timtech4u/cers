@@ -7,3 +7,4 @@ sentry_sdk
 requests
 geocoder
 bs4
+django-import-export
