@@ -54,6 +54,8 @@ def process_listen(request):
         service_code = request.POST.get('serviceCode')
         phone_number = request.POST.get('phoneNumber')
         text = request.POST.get('text')
+        usrInput = text.split('*')
+        step = len(usrInput)
 
         response = ""
 
@@ -80,23 +82,14 @@ def process_listen(request):
                 state_choice = state
                 state_id = i+1
                 response = "CON Select a Polling Unit: \n"
-                response += "Report with Unit 'ID-Message' e.g:\n \n"
                 for l in Units.objects.filter(state=state):
                     response += "{}. {} \n".format(l.id, l.name)
-                response += "Enter 0 for more. \n"
+        
+        if step == 3:
+            response = "CON Enter your report message: \n"
 
-        
-        # if state_id != None:
-        #     for i in range(1, total_locations+1):
-        #         if text=="1*1*1":
-        #             response = "END Hello"
-        
-        # for i in range(0,37):
-        #     if text == "1*{}*#".format(i+1):
-        #         response = "CON Enter your report message here:"
-        
-        # For demo
-        if text == "1*1*1-voting here was rigged":
-            response = "END Report Successful! \n For Further help call the Nigeria Police Force: \n 07066228200"
+        if step == 4:
+            print(usrInput[3])
+            response = "END Report successfully posted!"
                 
         return HttpResponse(response)
