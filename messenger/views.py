@@ -89,7 +89,11 @@ def process_listen(request):
             response = "CON Enter your report message: \n"
 
         if step == 4:
-            print(usrInput[3])
+            Report.object.create(
+                number=phone_number,
+                location=state,
+                message=userInput[3]
+            )
             response = "END Report successfully posted!"
                 
         return HttpResponse(response)
