@@ -38,12 +38,12 @@ class Command(BaseCommand):
                     )
                     if unit:
                         created += 1
-            #             if created == 10:
-            #                 break
-            #     if created == 10:
-            #         break
-            # if created == 10:
-            #     break
+                        if created == 10:
+                            break
+                if created == 10:
+                    break
+            if created == 10:
+                break
         print('Created=>', created)
         print("Done.....")
 

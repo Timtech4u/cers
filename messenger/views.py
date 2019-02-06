@@ -12,7 +12,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
 states = ['ABIA', 'ADAMAWA', 'AKWA IBOM', 'ANAMBRA', 'BAUCHI', 'BAYELSA', 'BENUE', 'BORNO', 'CROSS RIVER', 'DELTA', 'EBONYI', 'EDO', 'EKITI', 'ENUGU', 'FCT', 'GOMBE', 'IMO', 'JIGAWA', 'KADUNA', 'KANO', 'KATSINA', 'KEBBI', 'KOGI', 'KWARA', 'LAGOS', 'NASARAWA', 'NIGER', 'OGUN', 'ONDO', 'OSUN', 'OYO', 'PLATEAU', 'RIVERS', 'SOKOTO', 'TARABA', 'YOBE', 'ZAMFARA']
-crisis = ['Peaceful', 'Rigging', 'Polling box missing', 'Violence', 'Others']
+election_crisis = ['Peaceful', 'Rigging', 'Polling box missing', 'Violence', 'Others']
 
 # Homepage function
 def home(request):
