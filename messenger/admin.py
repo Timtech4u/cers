@@ -15,3 +15,5 @@ class UnitAdmin(admin.ModelAdmin):
 
 admin.site.register(Hook)
 admin.site.register(Units, UnitAdmin)
+admin.site.register(Official)
+admin.site.register(Blocked)
