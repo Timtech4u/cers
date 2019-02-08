@@ -213,9 +213,26 @@
     marker.on('mouseout', function (e) {
         this.closePopup();
     });
-    // marker.on('click', function() {
-    //  window.open('https://planninglabs.nyc', '_blank')
-    // });
+
+    const marker2 = L.marker([5.193650000000048, 7.326490000000035]).addTo(mymap);
+    marker2.bindPopup("67 INFANTRY - UMULE III AMASATOR OSISIOMA ABIA<br> <b>Hoodlums are here </b>");
+    marker2.on('mouseover', function (e) {
+        this.openPopup();
+    });
+    marker2.on('mouseout', function (e) {
+        this.closePopup();
+    });
+
+    const marker3 = L.marker([5.102190000000064, 7.378660000000025]).addTo(mymap);
+    marker3.bindPopup("ABA RIVER-DANFODIO ROAD PRIMARY SCHOOL I ABA RIVER ABA SOUTH ABIA<br> <b>Election here has been cancelled </b>");
+    marker3.on('mouseover', function (e) {
+        this.openPopup();
+    });
+    marker3.on('mouseout', function (e) {
+        this.closePopup();
+    });
+
+
   </script>
 </body>
 
